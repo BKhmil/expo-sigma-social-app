@@ -31,7 +31,7 @@ const LoginScreen = () => {
 				<View style={styles.logoContainer}>
 					<Ionicons name='chatbox-outline' size={32} color={COLORS.primary} />
 				</View>
-				<Text style={styles.appName}>spotlight</Text>
+				<Text style={styles.appName}>sigma social</Text>
 				<Text style={styles.tagline}>don&apos;t miss anything</Text>
 			</View>
 
