@@ -1,18 +1,8 @@
 import { httpRouter } from 'convex/server';
 import { Webhook } from 'svix';
+import { ClerkWebhook } from './../interfaces/clerk-webhook.interface';
 import { api } from './_generated/api';
 import { httpAction } from './_generated/server';
-
-// interface ClerkWebhook {
-//   type: string;
-//   data: {
-//     id: string;
-//     email_addresses: { email_address: string }[];
-//     first_name?: string;
-//     last_name?: string;
-//     image_url?: string;
-//   };
-// }
 
 const http = httpRouter();
 
@@ -43,14 +33,14 @@ http.route({
 		const body = JSON.stringify(payload);
 
 		const wh = new Webhook(webhookSecret);
-		let evt: any;
+		let evt: ClerkWebhook;
 
 		try {
 			evt = wh.verify(body, {
 				'svix-id': svix_id,
 				'svix-timestamp': svix_timestamp,
 				'svix-signature': svix_signature,
-			}) as any;
+			}) as ClerkWebhook;
 		} catch (err) {
 			console.error('Error verifying webhook:', err);
 			return new Response('Error occurred', { status: 400 });
@@ -69,7 +59,7 @@ http.route({
 				await ctx.runMutation(api.users.createUser, {
 					email,
 					fullname: name,
-					image: image_url,
+					image: image_url!,
 					clerkId: id,
 					username: email.split('@')[0],
 				});
