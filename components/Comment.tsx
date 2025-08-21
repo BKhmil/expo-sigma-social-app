@@ -13,7 +13,7 @@ type CommentProps = {
 	};
 };
 
-export default function Comment({ comment }: CommentProps) {
+const Comment = ({ comment }: CommentProps) => {
 	return (
 		<View style={styles.commentContainer}>
 			<Image
@@ -29,4 +29,6 @@ export default function Comment({ comment }: CommentProps) {
 			</View>
 		</View>
 	);
-}
+};
+
+export default Comment;

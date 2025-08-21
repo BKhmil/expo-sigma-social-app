@@ -44,7 +44,7 @@ const Post = ({ post }: PostProps) => {
 	);
 
 	const toggleLike = useMutation(api.posts.toggleLike);
-
+	const toggleBookmark = useMutation(api.bookmarks.toggleBookmark);
 	const deletePost = useMutation(api.posts.deletePost);
 
 	const handleLike = async () => {
@@ -57,7 +57,8 @@ const Post = ({ post }: PostProps) => {
 	};
 
 	const handleBookmark = async () => {
-		setIsBookmarked(!isBookmarked);
+		const newIsBookmarked = await toggleBookmark({ postId: post._id });
+		setIsBookmarked(newIsBookmarked);
 	};
 
 	const handleDelete = async () => {

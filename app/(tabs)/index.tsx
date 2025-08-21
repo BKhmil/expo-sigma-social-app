@@ -3,11 +3,6 @@ import Post from '@/components/Post';
 import StoriesSection from '@/components/StoriesSection';
 import { COLORS } from '@/constants/theme.constant';
 import { api } from '@/convex/_generated/api';
-import Loader from '@/components/Loader';
-import Post from '@/components/Post';
-import StoriesSection from '@/components/StoriesSection';
-import { COLORS } from '@/constants/theme.constant';
-import { api } from '@/convex/_generated/api';
 import { useAuth } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from 'convex/react';
@@ -35,47 +30,7 @@ const NoPostsFound = () => (
 );
 
 const FeedScreen = () => {
-import { Ionicons } from '@expo/vector-icons';
-import { useQuery } from 'convex/react';
-import { useState } from 'react';
-import {
-	FlatList,
-	RefreshControl,
-	Text,
-	TouchableOpacity,
-	View,
-} from 'react-native';
-import { styles } from '../../styles/feed.styles';
-
-const NoPostsFound = () => (
-	<View
-		style={{
-			flex: 1,
-			backgroundColor: COLORS.background,
-			justifyContent: 'center',
-			alignItems: 'center',
-		}}
-	>
-		<Text style={{ fontSize: 20, color: COLORS.primary }}>No posts yet</Text>
-	</View>
-);
-
-const FeedScreen = () => {
 	const { signOut } = useAuth();
-	const [refreshing, setRefreshing] = useState(false);
-
-	const posts = useQuery(api.posts.getFeedPosts);
-
-	if (posts === undefined) return <Loader />;
-	if (posts.length === 0) return <NoPostsFound />;
-
-	const onRefresh = () => {
-		setRefreshing(true);
-		setTimeout(() => {
-			setRefreshing(false);
-		}, 2000);
-	};
-
 	const [refreshing, setRefreshing] = useState(false);
 
 	const posts = useQuery(api.posts.getFeedPosts);
