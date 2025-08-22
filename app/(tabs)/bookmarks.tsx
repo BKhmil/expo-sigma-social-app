@@ -6,7 +6,7 @@ import { useQuery } from 'convex/react';
 import { Image } from 'expo-image';
 import { ScrollView, Text, View } from 'react-native';
 
-const Bookmarks = () => {
+const BookmarksScreen = () => {
 	const bookmarkedPosts = useQuery(api.bookmarks.getBookmarkedPosts);
 
 	if (bookmarkedPosts === undefined) return <Loader />;
@@ -62,4 +62,4 @@ function NoBookmarksFound() {
 	);
 }
 
-export default Bookmarks;
+export default BookmarksScreen;
