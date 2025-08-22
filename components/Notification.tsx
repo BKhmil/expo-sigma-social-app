@@ -1,4 +1,5 @@
 import { COLORS } from '@/constants/theme.constant';
+import { Id } from '@/convex/_generated/dataModel';
 import { styles } from '@/styles/notifications.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { formatDistanceToNow } from 'date-fns';
@@ -6,11 +7,39 @@ import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-const Notification = ({ notification }: any /* todo: add type */) => {
+type NotificationProps = {
+	notification: {
+		_id: Id<'notifications'>;
+		receiverId: Id<'users'>;
+		senderId: Id<'users'>;
+		type: 'like' | 'comment' | 'follow';
+		postId?: Id<'posts'>;
+		commentId?: Id<'comments'>;
+		_creationTime: Date;
+		sender: {
+			_id: Id<'users'>;
+			username: string;
+			image: string;
+		};
+		comment: string;
+		post: {
+			_id: Id<"posts">;
+			_creationTime: number;
+			caption?: string | undefined;
+			userId: Id<"users">;
+			imageUrl: string;
+			storageId: Id<"_storage">;
+			likes: number;
+			comments: number;
+		};
+	};
+};
+
+const Notification = ({ notification }: NotificationProps) => {
 	return (
 		<View style={styles.notificationItem}>
 			<View style={styles.notificationContent}>
-				<Link href={`/(tabs)/bookmarks` /* for now */} asChild>
+				<Link href={`/user/${notification.sender._id}` /* for now */} asChild>
 					<TouchableOpacity style={styles.avatarContainer}>
 						<Image
 							source={notification.sender.image}
@@ -31,7 +60,7 @@ const Notification = ({ notification }: any /* todo: add type */) => {
 				</Link>
 
 				<View style={styles.notificationInfo}>
-					<Link href={`/(tabs)/bookmarks` /* for now */} asChild>
+					<Link href={`/user/${notification.sender._id}`} asChild>
 						<TouchableOpacity>
 							<Text style={styles.username}>
 								{notification.sender.username}

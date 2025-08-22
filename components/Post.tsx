@@ -77,7 +77,7 @@ const Post = ({ post }: PostProps) => {
 					href={
 						currentUser?._id === post.author._id
 							? '/(tabs)/profile'
-							: `/(tabs)/bookmarks` // for now
+							: `/user/${post.author._id}` // for now
 					}
 					asChild
 				>
